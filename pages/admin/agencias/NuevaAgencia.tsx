@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { AddOutlined, ArrowCircleDownOutlined, DeleteOutlined, PointOfSaleOutlined, SaveOutlined, TransferWithinAStationOutlined, FilterAltOutlined, SearchOutlined, CurrencyExchangeOutlined } from '@mui/icons-material';
+import { AddOutlined, ArrowCircleDownOutlined, DeleteOutlined, PointOfSaleOutlined, SaveOutlined, TransferWithinAStationOutlined, FilterAltOutlined, SearchOutlined, CurrencyExchangeOutlined, Rotate90DegreesCwOutlined, ReplyAllOutlined } from '@mui/icons-material';
 import { Box, Button, Card, CardContent, Chip, FormControl, FormControlLabel, Grid, InputLabel, Link, MenuItem, Select, Stack, Switch, Tab, TextField, Divider, InputAdornment, IconButton, Input } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 
@@ -229,7 +229,7 @@ const NuevaAgenciaPage = () => {
             <Box  display='flex' justifyContent='end' sx={{ mb: 1, }}>
                     
                             
-                <Box>
+             {/*   <Box>
                 <Input
                     type='text'
                     placeholder="Buscar..."
@@ -241,9 +241,9 @@ const NuevaAgenciaPage = () => {
                         <SearchOutlined />
                         </IconButton>
                     </InputAdornment>
-            }
+                    }
                     />
-                </Box>
+                 </Box>  */}
                 <Box>
                     <FormControl sx={{ mr: 1, ml:1, minWidth: 160 }} size="small">
                         <InputLabel>Servicio</InputLabel>
@@ -284,8 +284,9 @@ const NuevaAgenciaPage = () => {
                         startIcon={ <AddOutlined /> }
                         href='/admin/comercial/NuevoComercial'
                         >
-                        Vender
+                        Nueva
                     </Button>
+                    
                     <Button 
                         variant="outlined" 
                         sx={{ mr: 2, }}
@@ -293,7 +294,25 @@ const NuevaAgenciaPage = () => {
                         startIcon={ <ArrowCircleDownOutlined /> }
                         href='/admin/supervisor/nuevo'
                         >
-                        Restituir
+                        Convert comision
+                    </Button>
+                    <Button 
+                        
+                        sx={{ mr: 2, }}
+                        color="success"
+                        startIcon={ <ReplyAllOutlined /> }
+                        href='/admin/supervisor/nuevo'
+                        >
+                        Caja Agencia
+                    </Button>
+                    <Button 
+                        
+                        sx={{ mr: 2, }}
+                        color="success"
+                        startIcon={ <Rotate90DegreesCwOutlined /> }
+                        href='/admin/supervisor/nuevo'
+                        >
+                        Agencia Caja
                     </Button>
                     <Button
                         color="warning"
