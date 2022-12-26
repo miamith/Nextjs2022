@@ -1,6 +1,6 @@
 import React from 'react'
 import { AdminLayout } from '../../components/layouts';
-import { AccessTimeOutlined, AccountBalanceOutlined, AddHomeWorkOutlined, AssignmentReturnedOutlined, CleanHandsOutlined, DashboardOutlined, GroupAddOutlined, MoneyOutlined, SendOutlined } from '@mui/icons-material';
+import { AccessTimeOutlined, AccountBalanceOutlined, AddHomeWorkOutlined, AssignmentReturnedOutlined, CleanHandsOutlined, DashboardOutlined, GroupAddOutlined, LocalOfferOutlined, MoneyOutlined, SendOutlined } from '@mui/icons-material';
 import { Grid } from '@mui/material';
 import { ResumenTitulo } from '../../components/admin/ResumenTitulo';
 
@@ -49,6 +49,16 @@ const DashboardPage = () => {
           titulo={'100.000'} 
           subtitulo={'Total retiros'} 
           icon={<AssignmentReturnedOutlined color='error' sx={{fontSize:40}}/>} 
+          />
+          <ResumenTitulo 
+          titulo={'100.000'} 
+          subtitulo={'IVA total'} 
+          icon={<LocalOfferOutlined color='warning' sx={{fontSize:40}}/>} 
+          />
+            <ResumenTitulo 
+          titulo={'100.000'} 
+          subtitulo={'Total comision PROD'} 
+          icon={<MoneyOutlined color='primary' sx={{fontSize:40}}/>} 
           />
           <ResumenTitulo 
           titulo={7} 

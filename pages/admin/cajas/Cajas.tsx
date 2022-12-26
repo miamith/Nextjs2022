@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { AddHomeWorkOutlined, AddOutlined, ArrowCircleDownOutlined, CheckCircleOutlineOutlined, DeleteOutlined, PointOfSaleOutlined } from '@mui/icons-material';
-import { Grid, Box, Chip, Link, Button } from '@mui/material';
+import {  AddCircleOutlined, AddOutlined, ArrowCircleDownOutlined, ArrowDownwardOutlined, ArrowUpwardOutlined, CheckCircleOutlineOutlined, CompareArrowsOutlined, CurrencyExchangeOutlined, DeleteOutlined, LocalPrintshopOutlined, PointOfSaleOutlined, RemoveCircleOutlined, ReplyAllOutlined } from '@mui/icons-material';
+import { Grid, Box, Chip, Link, Button, IconButton } from '@mui/material';
 import { AdminLayout } from '../../../components/layouts';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
 import NextLink from 'next/link';
@@ -11,21 +11,22 @@ import { UIContext } from '../../../context';
  {/* TABLA COLUMNAS*/}
  const columns: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
+    { field:'nombrecuenta', headerName:'NOMBRE CUENTA', width:150},
     { field:'numero', headerName:'NUMERO', width:110},
-    { field:'cajade', headerName:'CAJA DE', width:180},
-    { field:'saldode', headerName:'SALDO DE', width:110},
-    { field:'comision', headerName:'COMISION', width:150},
-    { field:'saldototalcaja', headerName:'SALDO TOTAL CAJA', width:100},
-    { field:'totalUV', headerName:'TOTAL UV', width:100},
-    { field:'sentido', headerName:'SENTIDO', width:70},
-    { field:'codigoope', headerName:'OPE', width:4},
-    { field:'adminagencia', headerName:'ADMIN AGENCIA', width:150},
-    { field:'nombre', headerName:'NOMBRE', width:180},
-    { field:'gerente', headerName:'GERENTE', width:150},
-
+    { field:'gestor', headerName:'GESTOR', width:150},
+    { field:'saldo', headerName:'SALDO', width:150},
+    { field:'efectigoagencia', headerName:'EFECTIVO AGENCIA', width:150},
+    { field:'efectiviMovil', headerName:'EFECTIVO MOVIL', width:100},
+    { field:'comision', headerName:'COMISION', width:100},
+    { field:'creditoUV', headerName:'CREDITO UV', width:150},
+    { field:'bitodeUV', headerName:'DEBITO UV', width:150},
+    { field:'cuentavinculada', headerName:'CUENTA VINCULADA', width:150},
+    { field:'retiro', headerName:'RETIRO', width:100},
+    { field:'tipocuenta', headerName:'TIPO DE CUENTA', width:100},
+    { field:'ventauv', headerName:'VENTA UV', width:100},
     { field:'estado',
       headerName:'ESTADO',
-      description:'Aqui muestra el estado de la agencia',
+      description:'Aqui muestra el estado de la caja',
       width:120,
       renderCell:(params: GridRenderCellParams)=>{
           return (
@@ -37,7 +38,8 @@ import { UIContext } from '../../../context';
         } 
     },
 
-    { field:'creador', headerName:'CREADOR', width:150},
+
+    { field:'creado', headerName:'CREADOR', width:100},
     { field:'fecha', headerName:'FECHA', width:100},
     { field:'accion',
     headerName:'ACCION',
@@ -61,7 +63,7 @@ const rows=[null
 ]
 
 
-const AgenciasPage = () => {
+const CajasPage = () => {
 
         {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
 const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
@@ -71,9 +73,9 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
   return (
   
     <AdminLayout 
-        titulo={' Agencias'} 
-        subtitulo={'Lista de todas las agencias'}
-        icon={<AddHomeWorkOutlined/>}
+        titulo={' Cajas'} 
+        subtitulo={'Lista de cajas'}
+        icon={<CurrencyExchangeOutlined/>}
     >
 
       {/* BOTONES DE ACCION  Y FILTROS*/}
@@ -82,19 +84,36 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
                         sx={{ mr: 1, }}
                         color="secondary"
                         startIcon={ <AddOutlined /> }
-                        href='/admin/agencias/NuevaAgencia'
+                        href='/admin/cajas/NuevaCaja'
                         >
-                        Nueva
+                        Nuevo
                     </Button>
                     <Button 
                                     
                         sx={{ mr: 1 }}
                         color="primary"
-                        startIcon={ <CheckCircleOutlineOutlined /> }
+                        startIcon={ <AddCircleOutlined /> }
                         onClick={ toggleNuevaVentaAgenciaUDialog }
                         >
-                        Vender UV 
+                        Creditar 
                     </Button>
+                    <Button 
+                         
+                        sx={{ mr: 1, }}
+                        color="warning"
+                        startIcon={ <RemoveCircleOutlined /> }
+                        href='/admin/supervisor/nuevo'
+                        >
+                        Debitar
+                    </Button>
+                    <Button 
+                         
+                        sx={{ mr: 1, }}
+                        color="success"
+                        startIcon={ <CompareArrowsOutlined /> }
+                        href='/admin/cajeros/DetallesCaja'
+                        >
+                        Caja a Caja                    </Button>
                     <Button 
                         variant="outlined" 
                         sx={{ mr: 1, }}
@@ -111,6 +130,10 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
                         >
                         Borrar
                     </Button>
+                    
+                    <IconButton color="primary" aria-label="Imprimir" size="small">
+                         <LocalPrintshopOutlined fontSize="small"/>
+                    </IconButton>
       </Box>
 
       <Grid container spacing={2} className='fadeIn'>
@@ -148,4 +171,4 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
   )
 }
 
-export default AgenciasPage
+export default CajasPage

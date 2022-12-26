@@ -1,27 +1,30 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { AddOutlined, ArrowCircleDownOutlined, DeleteOutlined, PointOfSaleOutlined, SaveOutlined, TransferWithinAStationOutlined, FilterAltOutlined, SearchOutlined, ReplyAllOutlined, Rotate90DegreesCwOutlined } from '@mui/icons-material';
-import { Box, Button, Card, CardContent, Chip, FormControl, FormControlLabel, Grid, InputLabel, Link, MenuItem, Select, Stack, Switch, Tab, TextField, Divider, InputAdornment, IconButton, Input } from '@mui/material';
+import { DeleteOutlined, SaveOutlined, FilterAltOutlined, SearchOutlined, PriceChangeOutlined, AddOutlined } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, Chip, FormControl, Grid, InputLabel, Link, MenuItem, Select, Stack, Tab, Divider, InputAdornment, IconButton, Input } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
-import { UIContext } from '../../../context';
+
 import { DatePicker, Space } from 'antd';
 
 
 import { AdminLayout } from '../../../components/layouts';
 import NextLink from 'next/link';
+import { UIContext } from '../../../context';
+import { useContext } from 'react';
 
-{/* TABLA COLUMNAS CAJAS*/}
+
+
+{/* TABLA COLUMNAS COMISIONES*/}
 const columns: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
-    { field:'tipotrans', headerName:'TIPO TRANSACCION', width:200},
-    { field:'numero', headerName:'NUMERO', width:110},
-    { field:'sentido', headerName:'SENTIDO', width:70},
-    { field:'codigoope', headerName:'OPE', width:4},
-    { field:'monto', headerName:'MONTO', width:100},
-    { field:'asociada', headerName:'ASOCIADA', width:150},
+    { field:'del', headerName:'DEL MONTO', width:180},
+    { field:'al', headerName:'AL MONTO', width:180},
+    { field:'comision', headerName:'COMISION', width:150},
+    { field:'areas', headerName:'AREAS', width:100},
+
     { field:'estado',
       headerName:'ESTADO',
-      description:'Aqui muestra el estado de la transaccion',
+      description:'Aqui muestra el estado',
       width:120,
       renderCell:(params: GridRenderCellParams)=>{
           return (
@@ -33,8 +36,7 @@ const columns: GridColDef[] = [
         } 
     },
 
-
-    { field:'creado', headerName:'CREADOR', width:100},
+    { field:'creador', headerName:'CREADOR', width:150},
     { field:'fecha', headerName:'FECHA', width:100},
     { field:'accion',
     headerName:'ACCION',
@@ -54,11 +56,11 @@ const columns: GridColDef[] = [
 
 ];
 
-const NuevaCajaUVPage = () => {
 
-          {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
-const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, toggleVentaRecargaComercialUDialog } = useContext(UIContext);
 
+const NuevoPrecioPage = () => {
+    {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
+const { toggleNuevaComisionDialog} = useContext(UIContext);
 
     const [value, setValue] = React.useState('1');
     
@@ -76,9 +78,9 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
   return (
 
     <AdminLayout 
-    titulo={' Nueva Caja UV'} 
-    subtitulo={'Creacion de una nueva caja de valores de unidad'}
-    icon={<PointOfSaleOutlined/>}
+    titulo={' Nuevo Precio'} 
+    subtitulo={'Creacion de una nueva tarificacion'}
+    icon={<PriceChangeOutlined/>}
      >
           {/* BOTONES DE ACCION  Y FILTROS*/}
           <Box  display='flex' justifyContent='end' sx={{ mb: 1, }}>
@@ -87,14 +89,14 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
                         sx={{ mr: 2, }}
                         color="secondary"
                         startIcon={ <SaveOutlined /> }
-                        href='/admin/supervisor/NuevoBancoCentral'
+                        href='/admin/precios/nuevo'
                         >
                         Guardar
                     </Button>
                     <Button
                         color="warning"
                         startIcon={ <DeleteOutlined /> }
-                        href='/admin/supervisor/nuevo'
+                        href='/admin/precios/borrar'
                         >
                         Borrar
                     </Button>
@@ -108,38 +110,11 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
            <Stack spacing={1}>
                 <Grid item xs={12}>
                   <FormControl fullWidth size='small'>
-                    <InputLabel>Administrador Cuenta</InputLabel>
-                    <Select label='Administrador Cuenta' variant='filled' labelId='administrador' value={1} >
-                        <MenuItem value={1}>ADMININSULAR</MenuItem>                 
+                    <InputLabel>Salida</InputLabel>
+                    <Select variant='filled' label='Salida' value={1} >
+                        <MenuItem value={1}>GUINEA ECUATORIAL</MenuItem>                 
                     </Select>
                   </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Nombre" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Numero" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Nombre usuario" variant='filled' fullWidth />
-                </Grid>
-                
-                <Grid item xs={12}>
-                    <TextField size="small" label="Gsm" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                    value="start"
-                    control={<Switch color="secondary" />}
-                    label="Esta activo"
-                    labelPlacement="start"
-                    />
-                    <FormControlLabel
-                    value="start"
-                    control={<Switch color="secondary" />}
-                    label="Reiniciar contraseña"
-                    labelPlacement="start"
-                    />
                 </Grid>
              </Stack>
            </CardContent>
@@ -151,32 +126,12 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
            <CardContent>
            <Stack spacing={1}>
                 <Grid item xs={12}>
-                    <TextField size="small" label="Transaccion total" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Credito total" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Debito total" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
-                    <TextField size="small" label="Saldo UV total" variant='filled' fullWidth />
-                </Grid>
-                <Grid item xs={12}>
                   <FormControl fullWidth size='small'>
-                    <InputLabel>Pais de trabajo</InputLabel>
-                    <Select variant='filled' labelId='pais' value={1} >
-                        <MenuItem value={1}>GUINEA ECUATORIAL</MenuItem>                 
+                    <InputLabel>Destino</InputLabel>
+                    <Select variant='filled' label='Salida' value={1} >
+                        <MenuItem value={1}>CAMERUN</MenuItem>                 
                     </Select>
                   </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                   <FormControlLabel
-                    value="start"
-                    control={<Switch color="secondary" />}
-                    label="Validacion requerida"
-                    labelPlacement="start"
-                    />
                 </Grid>
              </Stack>
            </CardContent>
@@ -189,13 +144,15 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
         <TabContext value={value} >
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList  onChange={handleChange} aria-label="Informacion vinculada" centered textColor="secondary">
-                <Tab value="1" icon={<TransferWithinAStationOutlined />} label="TRANSACCIONES" />
+                <Tab value="1" icon={<PriceChangeOutlined />} label="COMISIONES" />
+                
             </TabList>
         </Box>
-            <TabPanel value="1" > {/* TAB TRANSACCIONES UV*/}
+
+          <TabPanel value="1" > {/* TAB COMISIONES */}
 
                         {/* BOTONES DE ACCION  Y FILTROS*/}
-                <Box  display='flex' justifyContent='end' sx={{ mb: 1, }}>
+                <Box  display='flex' justifyContent='end' sx={{ mb: 1,mt:2 }}>
                                 
                                           
                             <Box>
@@ -237,70 +194,47 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
 
                                  <Button
                                     variant="outlined" 
-                                    sx={{ mr: 1, ml:1 }}
+                                    sx={{  ml:1, mr:2 }}
                                     color="error"
                                     startIcon={ <FilterAltOutlined /> }
                                     href='/admin/comercial/nuevo'
                                     >
                                     Filtrar
                                 </Button>
-
                                 <Divider  orientation="vertical" flexItem />
-
+                          
                                 <Button 
-                                    color="secondary"
-                                    sx={{ mr: 1, ml:1 }}
+                                    
+                                    sx={{ mr: 1,ml:2 }}
+                                    color="primary"
                                     startIcon={ <AddOutlined /> }
-                                    onClick={ toggleVentaRecargaComercialUDialog }
+                                    onClick={toggleNuevaComisionDialog}
                                     >
-                                    Recarga Comercial
+                                    Nueva
                                 </Button>
                                 <Button 
                                     
-                                    sx={{ mr: 1, }}
-                                    color="success"
-                                    startIcon={ <ReplyAllOutlined /> }
-                                    onClick={ toggleVentaAgenciaComercialUDialog }
-                                    >
-                                    Agency Comercial
-                                </Button>
-                                <Button 
-                                    
-                                    sx={{ mr: 1, }}
-                                    color="success"
-                                    startIcon={ <Rotate90DegreesCwOutlined /> }
-                                    onClick={ toggleVentaComercialAgenciaUDialog }
-                                    >
-                                    Comercial Agency
-                                </Button>
-                                {/*<Button 
-                                    variant="outlined" 
-                                    sx={{ mr: 1, }}
-                                    color="success"
-                                    startIcon={ <ArrowCircleDownOutlined /> }
-                                    href='/admin/supervisor/nuevo'
-                                    >
-                                    Restituir
-                                </Button> */}
-                                <Button
+                                    sx={{ }}
                                     color="warning"
                                     startIcon={ <DeleteOutlined /> }
                                     href='/admin/supervisor/nuevo'
                                     >
                                     Borrar
                                 </Button>
+
+                               
                 </Box>
 
                 <Grid container className='fadeIn'>
 
                     <Grid item xs={12} sx={{ height:200, width:'100%'}}>
                     
-                    {/* TABLA DE REGISTROS CAJAS  */}
+                    {/* TABLA DE REGISTROS TRANSACCIONES  */}
                         <DataGrid
                                 rows={[]}
                                 columns={columns}
-                                pageSize={5}
-                                rowsPerPageOptions={[5,50,100]}
+                                pageSize={10}
+                                rowsPerPageOptions={[10,50,100]}
                                 components={{ Toolbar: GridToolbar }}
                                 componentsProps={{
                                 toolbar: {
@@ -331,4 +265,4 @@ const { toggleVentaComercialAgenciaUDialog, toggleVentaAgenciaComercialUDialog, 
   )
 }
 
-export default NuevaCajaUVPage
+export default NuevoPrecioPage

@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
-import { AddHomeWorkOutlined, AddOutlined, ArrowCircleDownOutlined, CheckCircleOutlineOutlined, DeleteOutlined, PointOfSaleOutlined } from '@mui/icons-material';
+import React from 'react'
+import { useContext } from 'react';
+import { AddOutlined, ArrowCircleDownOutlined, DeleteOutlined, LanguageOutlined, PointOfSaleOutlined } from '@mui/icons-material';
 import { Grid, Box, Chip, Link, Button } from '@mui/material';
 import { AdminLayout } from '../../../components/layouts';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
@@ -11,21 +12,11 @@ import { UIContext } from '../../../context';
  {/* TABLA COLUMNAS*/}
  const columns: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
-    { field:'numero', headerName:'NUMERO', width:110},
-    { field:'cajade', headerName:'CAJA DE', width:180},
-    { field:'saldode', headerName:'SALDO DE', width:110},
-    { field:'comision', headerName:'COMISION', width:150},
-    { field:'saldototalcaja', headerName:'SALDO TOTAL CAJA', width:100},
-    { field:'totalUV', headerName:'TOTAL UV', width:100},
-    { field:'sentido', headerName:'SENTIDO', width:70},
-    { field:'codigoope', headerName:'OPE', width:4},
-    { field:'adminagencia', headerName:'ADMIN AGENCIA', width:150},
     { field:'nombre', headerName:'NOMBRE', width:180},
-    { field:'gerente', headerName:'GERENTE', width:150},
 
     { field:'estado',
       headerName:'ESTADO',
-      description:'Aqui muestra el estado de la agencia',
+      description:'Aqui muestra el estado de idioma',
       width:120,
       renderCell:(params: GridRenderCellParams)=>{
           return (
@@ -61,19 +52,18 @@ const rows=[null
 ]
 
 
-const AgenciasPage = () => {
+const IdiomasPage = () => {
 
-        {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
-const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
-
+      {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
+const { toggleNuevoIdiomaDialog} = useContext(UIContext);
 
 
   return (
   
     <AdminLayout 
-        titulo={' Agencias'} 
-        subtitulo={'Lista de todas las agencias'}
-        icon={<AddHomeWorkOutlined/>}
+        titulo={' Idiomas'} 
+        subtitulo={'Lista de todos los idiomas'}
+        icon={<LanguageOutlined/>}
     >
 
       {/* BOTONES DE ACCION  Y FILTROS*/}
@@ -82,27 +72,9 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
                         sx={{ mr: 1, }}
                         color="secondary"
                         startIcon={ <AddOutlined /> }
-                        href='/admin/agencias/NuevaAgencia'
+                        onClick={ toggleNuevoIdiomaDialog }
                         >
-                        Nueva
-                    </Button>
-                    <Button 
-                                    
-                        sx={{ mr: 1 }}
-                        color="primary"
-                        startIcon={ <CheckCircleOutlineOutlined /> }
-                        onClick={ toggleNuevaVentaAgenciaUDialog }
-                        >
-                        Vender UV 
-                    </Button>
-                    <Button 
-                        variant="outlined" 
-                        sx={{ mr: 1, }}
-                        color="success"
-                        startIcon={ <ArrowCircleDownOutlined /> }
-                        href='/admin/comercial/NuevoComercial'
-                        >
-                        Convert comision
+                        Nuevo
                     </Button>
                     <Button
                         color="warning"
@@ -148,4 +120,4 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
   )
 }
 
-export default AgenciasPage
+export default IdiomasPage

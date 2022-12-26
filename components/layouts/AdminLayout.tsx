@@ -3,6 +3,14 @@ import { Box, Typography } from '@mui/material';
 
 import { AdminNavbar } from '../admin/';
 import {SideMenu} from '../ui';
+import {NuevaCajaDialog} from '../cajas';
+import {NuevoIdiomaDialog} from '../idiomas';
+import { NuevaMonedaDialog } from '../monedas';
+import { NuevoPaisDialog } from '../paises';
+import { NuevaComisionDialog } from '../comisiones';
+import { NuevaVentaAgenciaUVDialog, VentaAgenciaComercialUVDialog } from '../agencias';
+import { VentaComercialAgenciaUVDialog } from '../agencias/VentaComercialAgenciaUVDialog';
+import { VentaRecargaComercialUVDialog } from '../agencias/VentaRecargaComercialUVDialog';
 
 
 
@@ -23,7 +31,19 @@ interface Props {
         </nav>
 
        <SideMenu></SideMenu>
-
+       
+       {/* AQUI VA TODO MODAL DIALOG */}
+       <NuevaCajaDialog></NuevaCajaDialog>
+       <NuevoIdiomaDialog></NuevoIdiomaDialog>
+       <NuevaMonedaDialog></NuevaMonedaDialog>
+       <NuevoPaisDialog></NuevoPaisDialog>
+       <NuevaComisionDialog></NuevaComisionDialog>
+       <NuevaVentaAgenciaUVDialog></NuevaVentaAgenciaUVDialog>
+       <VentaAgenciaComercialUVDialog></VentaAgenciaComercialUVDialog>
+       <VentaComercialAgenciaUVDialog></VentaComercialAgenciaUVDialog>
+       <VentaRecargaComercialUVDialog></VentaRecargaComercialUVDialog>
+        
+        
         <main style={{
             margin:'80px auto',
             maxWidth:'1440px',

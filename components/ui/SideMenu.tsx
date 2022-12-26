@@ -1,8 +1,8 @@
 import React from "react";
 import { useContext} from "react";
 import { useRouter } from "next/router";
-import { Box, Collapse, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
-import {  AccountBalanceOutlined, AccountCircleOutlined, AccountTreeOutlined, AddHomeWork, AddHomeWorkOutlined, AdminPanelSettings, AssignmentReturnedOutlined, CleanHandsOutlined, CurrencyExchangeOutlined, DashboardOutlined, ExpandLess, ExpandMore, GroupAddOutlined, LanguageOutlined, LoginOutlined, MobileScreenShareOutlined, OutboxOutlined, PointOfSaleOutlined, PriceChangeOutlined, SchemaOutlined, SearchOutlined, Send, SendOutlined, SettingsOutlined, SportsScoreOutlined, SupervisedUserCircleOutlined, WalletOutlined } from "@mui/icons-material"
+import { Box, Collapse, Divider, Drawer, IconButton, Input, InputAdornment, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from "@mui/material"
+import {  AccountBalanceOutlined, AccountCircleOutlined, AccountTreeOutlined, AddchartOutlined, AddHomeWork, AddHomeWorkOutlined, AdminPanelSettings, AssignmentReturnedOutlined, CasesOutlined, CleanHandsOutlined, CurrencyExchangeOutlined, DashboardOutlined, ExpandLess, ExpandMore, GroupAddOutlined, LanguageOutlined, LoginOutlined, MobileScreenShareOutlined, OutboxOutlined, PointOfSaleOutlined, PriceChangeOutlined, SchemaOutlined, SearchOutlined, Send, SendOutlined, SettingsOutlined, SportsScoreOutlined, SupervisedUserCircleOutlined, WalletOutlined } from "@mui/icons-material"
 
 import { UIContext } from "../../context"
 
@@ -35,11 +35,11 @@ const navegateHacia= (url: string)=>{
         // HAY UNA PROPIEDAD EN EL Drawer que al hacer clic fuera onClose
         onClose={toggleSideMenu}
     >
-        <Box sx={{ width: 250, paddingTop: 5 }}>
+        <Box sx={{ width: 250, paddingTop: 4 }}>
             
             <List>
 
-                <ListItem>
+                <ListItemButton>
                     <Input
                         type='text'
                         placeholder="Buscar..."
@@ -53,11 +53,11 @@ const navegateHacia= (url: string)=>{
                             </InputAdornment>
                         }
                     />
-                </ListItem>
+                </ListItemButton>
 
 
-                <ListItem 
-                    button 
+                <ListItemButton 
+                     
                     sx={{ display: { xs: '', sm: '' } }}
                     onClick={ () => navegateHacia('/admin/') }
                     >
@@ -65,9 +65,9 @@ const navegateHacia= (url: string)=>{
                         <DashboardOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Resumen'} />
-                </ListItem>
-                <ListItem 
-                    button 
+                </ListItemButton>
+                <ListItemButton 
+                     
                     sx={{ display: { xs: '', sm: '' } }}
                     onClick={ () => navegateHacia('/enviar/historialEnvios') }
                     >
@@ -75,188 +75,211 @@ const navegateHacia= (url: string)=>{
                         <OutboxOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Mis envios'} />
-                </ListItem>
+                </ListItemButton>
 
-                <ListItem 
-                    button sx={{ display: { xs: '', sm: '' } }}
+                <ListItemButton 
+                     sx={{ display: { xs: '', sm: '' } }}
                     onClick={ () => navegateHacia('/recibir/historialRecibir') }
                     >
                     <ListItemIcon>
                         <AssignmentReturnedOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Mis pagos'} />
-                </ListItem>
+                </ListItemButton>
 
-                <ListItem 
-                    button sx={{ display: { xs: '', sm: '' } }}
+                <ListItemButton 
+                     sx={{ display: { xs: '', sm: '' } }}
                     onClick={ () => navegateHacia('/admin/cajauv/CajaUV') }
                     >
                     <ListItemIcon>
                         <PointOfSaleOutlined/>
                     </ListItemIcon>
-                    <ListItemText primary={'Ventas UV'} />
-                </ListItem>
+                    <ListItemText primary={'Ventas UV Caja'} />
+                </ListItemButton>
 
-                <ListItem button sx={{ display: { xs: '', sm: '' } }}>
+                <ListItemButton  sx={{ display: { xs: '', sm: '' } }}>
                     <ListItemIcon>
                         <CurrencyExchangeOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Caja'} />
-                </ListItem>
+                </ListItemButton>
 
-                <ListItem button sx={{ display: { xs: '', sm: '' } }} onClick={handleClick}>
+                <ListItemButton  sx={{ display: { xs: '', sm: '' } }} onClick={handleClick}>
                     <ListItemIcon>
                         <MobileScreenShareOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Móvil'} />
                     {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
+                </ListItemButton>
                 <Collapse in={!open} timeout="auto" unmountOnExit>
                     <List>
-                    <ListItem button sx={{ pl: 4 } } 
+                    <ListItemButton  sx={{ pl: 4 } } 
                       onClick={ () => navegateHacia('/enviar/formuEnvioMovil') }
                     >
                     <ListItemIcon >
                         <SendOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Enviar" />
-                    </ListItem>
+                    </ListItemButton>
                     </List>
                 </Collapse>
 
                 
                 
-                <ListItem button>
+                <ListItemButton >
                     <ListItemIcon>
                         <WalletOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Wallet'} />
-                </ListItem>
-
-
+                </ListItemButton>
 
 
                 {/* Admin usuario */}
                 <Divider />
-                <ListSubheader>Panel Usuario</ListSubheader>
+                <ListSubheader>Panel Administrativo</ListSubheader>
 
-                <ListItem button >
+                <ListItemButton  
+                onClick={ () => navegateHacia('/admin/usuarios/NuevoUsuario') }
+                >
                     <ListItemIcon>
                         <AccountCircleOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Perfil'}  />
-                </ListItem>
+                </ListItemButton>
 
                 
-                <ListItem button onClick={handleClick2}> 
+                <ListItemButton  onClick={handleClick2}> 
                     <ListItemIcon>
                         <SettingsOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Administración'} />
                     {open ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
+                </ListItemButton>
                 <Collapse in={!open2} timeout="auto" unmountOnExit>
                     <List>
-                    <ListItem button sx={{ pl: 4 } } 
+                    <ListItemButton  sx={{ pl: 4 } } 
                       onClick={ () => navegateHacia('/admin/bancocentral/BancoCentral') }
                     >
                     <ListItemIcon >
                         <AccountBalanceOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Banco Central" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
+                    </ListItemButton>
+                    
+                    <ListItemButton  sx={{ pl: 4 } } 
                       onClick={ () => navegateHacia('/admin/comercial/Comercial') }
                     >
                     <ListItemIcon >
                         <AccountTreeOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Comercial" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
+                    </ListItemButton>
+
+                    <ListItemButton  sx={{ pl: 4 } } 
                       onClick={ () => navegateHacia('/admin/agencias/Agencias') }
                     >
                     <ListItemIcon >
                         <AddHomeWorkOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Agencias" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
+                    </ListItemButton>
+
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/cajas/Cajas') }
+                    >
+                    <ListItemIcon >
+                        <CurrencyExchangeOutlined/>
+                    </ListItemIcon>
+                        <ListItemText primary="Cajas" />
+                    </ListItemButton>
+
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/cajeros/Cajeros') }
+                    >
+                    <ListItemIcon >
+                        <CasesOutlined/>
+                    </ListItemIcon>
+                        <ListItemText primary="Cajeros" />
+                    </ListItemButton>
+
+                    <ListItemButton  sx={{ pl: 4 } } 
                       onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
                     >
                     <ListItemIcon >
                         <CleanHandsOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Cuentas" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/idiomas/Idiomas') }
                     >
                     <ListItemIcon >
                         <LanguageOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Idiomas" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/paises/Paises') }
                     >
                     <ListItemIcon >
                         <SportsScoreOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Paises" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/clientes/Clientes') }
                     >
                     <ListItemIcon >
                         <GroupAddOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Clientes" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/usuarios/Usuarios') }
                     >
                     <ListItemIcon >
                         <SupervisedUserCircleOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Usuarios" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/monedas/Monedas') }
                     >
                     <ListItemIcon >
                         <CurrencyExchangeOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Monedas" />
-                    </ListItem>
-                    <ListItem button sx={{ pl: 4 } } 
-                      onClick={ () => navegateHacia('/admin/formuEnvioMovil') }
+                    </ListItemButton>
+                    <ListItemButton  sx={{ pl: 4 } } 
+                      onClick={ () => navegateHacia('/admin/precios/Precios') }
                     >
                     <ListItemIcon >
                         <PriceChangeOutlined/>
                     </ListItemIcon>
                         <ListItemText primary="Precios" />
-                    </ListItem>
+                    </ListItemButton>
 
                     </List>
                 </Collapse>
 
-                <ListItem button>
+                <ListItemButton sx={{  } } 
+                      onClick={ () => navegateHacia('/admin/operaciones/Operaciones') }
+                    >
                     <ListItemIcon>
-                        <AdminPanelSettings/>
+                        <AddchartOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Operaciones'} />
-                </ListItem>
+                </ListItemButton>
 
-                <ListItem 
-                    button
+                <ListItemButton 
+                    
                     onClick={ () => navegateHacia('/auth/login') }
                 >
                     <ListItemIcon>
                         <LoginOutlined/>
                     </ListItemIcon>
                     <ListItemText primary={'Salir'} />
-                </ListItem>
+                </ListItemButton>
             </List>
         </Box>
     </Drawer>

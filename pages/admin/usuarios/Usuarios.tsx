@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccountTreeOutlined, AddOutlined, FilterAltOutlined } from '@mui/icons-material';
+import { AddOutlined, SupervisedUserCircleOutlined } from '@mui/icons-material';
 import { Grid, Box, Chip, Link, Button } from '@mui/material';
 import { AdminLayout } from '../../../components/layouts';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
@@ -9,14 +9,26 @@ import NextLink from 'next/link';
  {/* TABLA COLUMNAS*/}
  const columns: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
-    { field:'nombre', headerName:'NOMBRE', width:180},
-    { field:'numero', headerName:'NUMERO', width:110},
-    { field:'gerente', headerName:'GERENTE', width:100},
-    { field:'saldo', headerName:'SALDO', width:100},
-    { field:'supervisor', headerName:'SUPERVISOR', width:150},
+    { field:'nombreusuario', headerName:'NOMBRE USUARIO', width:100},
+    { field:'pais', headerName:'PAIS', width:110},
+    { field:'cuenta', headerName:'CUENTA', width:200},
+
+    { field:'sesion',
+      headerName:'SESION',
+      description:'Aqui muestra si conectado',
+      width:120,
+      renderCell:(params: GridRenderCellParams)=>{
+          return (
+              params.row.estado
+                    ? <Chip color="success" label="Activa" variant='outlined'/>
+                    :<Chip color="error" label="Inactiva" variant='outlined'/>
+                )
+                    
+        } 
+    },
     { field:'estado',
       headerName:'ESTADO',
-      description:'Aqui muestra si el envio fue recibido o no',
+      description:'Aqui muestra si esta activo o bloqueado',
       width:120,
       renderCell:(params: GridRenderCellParams)=>{
           return (
@@ -28,9 +40,9 @@ import NextLink from 'next/link';
         } 
     },
 
-
-    { field:'creado', headerName:'CREADOR', width:100},
-    { field:'fecha', headerName:'FECHA', width:100},
+    { field:'ultimaconexion', headerName:'ULTIMA CONEXION', width:180},
+    
+    { field:'fecha', headerName:'FECHA CREACION', width:100},
     { field:'accion',
     headerName:'ACCION',
     width:120,
@@ -50,40 +62,28 @@ import NextLink from 'next/link';
 ];
 
 const rows=[
-    {id:1,nombre:'ADMINCONTINENTAL',numero:'99922334401',gerente:'M.Bata',saldo:'100.000.000', 
-    supervisor:'ARSENIA RAFAELA',estado:false,creado:'ARSENIA',fecha:'28/11/2022'   
-    },
-
-    {id:2,nombre:'ADMININSULAR',numero:'99922334401',gerente:'M.Bata',saldo:'100.000.000', 
-    supervisor:'ARSENIA RAFAELA',estado:false,creado:'ARSENIA',fecha:'28/11/2022'   
+    {id:1,nombreusuario:'MIGUEL',pais:'GUINEA E.',cuenta:'AIREPI', sesion:true,
+     estado:true, ultimaconexion:'22/12/2022',fecha:'28/11/2022'   
     }
 ]
 
 
-const ComercialPage = () => {
+const UsuariosPage = () => {
   return (
   
     <AdminLayout 
-        titulo={' Comercial'} 
-        subtitulo={'Lista de comerciales'}
-        icon={<AccountTreeOutlined/>}
+        titulo={' Usuarios'} 
+        subtitulo={'Lista de usuarios de la aplicacion'}
+        icon={<SupervisedUserCircleOutlined/>}
     >
 
       {/* BOTONES DE ACCION  Y FILTROS*/}
       <Box  display='flex' justifyContent='end' sx={{ mb: 1, }}>
-                    <Button
-                        variant="outlined" 
-                        sx={{ mr: 2, }}
-                        color="error"
-                        startIcon={ <FilterAltOutlined /> }
-                        href='/admin/comercial/nuevo'
-                        >
-                        Filtrar
-                    </Button>
+
                     <Button 
                         color="secondary"
                         startIcon={ <AddOutlined /> }
-                        href='/admin/comercial/NuevoComercial'
+                        href='/admin/usuarios/NuevoUsuario'
                         >
                         Nuevo
                     </Button>
@@ -101,7 +101,6 @@ const ComercialPage = () => {
                     rowsPerPageOptions={[10,50,100]}
                     rowHeight={35}
                     checkboxSelection
-                    disableSelectionOnClick
                     components={{ Toolbar: GridToolbar }}
                     componentsProps={{
                       toolbar: {
@@ -109,6 +108,7 @@ const ComercialPage = () => {
                           quickFilterProps: { debounceMs: 500 },
                       },
                   }}
+
                                         
             />
 
@@ -124,4 +124,4 @@ const ComercialPage = () => {
   )
 }
 
-export default ComercialPage
+export default UsuariosPage

@@ -15,17 +15,19 @@ import { useContext } from 'react';
 
 
 {/* TABLA COLUMNAS AGENCIAS*/}
-const columnsCajas: GridColDef[] = [
+const columnsCajeros: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
+    { field:'saldo', headerName:'SALDO', width:150},
+    { field:'nombrecomp', headerName:'NOMBRE COMP', width:150},
+    { field:'typoobjeto', headerName:'TIPO OBJETO', width:150},
     { field:'nombre', headerName:'NOMBRE', width:150},
+    { field:'cuentaagencia', headerName:'CUENTA AGENCIA', width:150},
     { field:'comisioncaja', headerName:'COMISION CAJA', width:100},
+    { field:'transtotal', headerName:'TRANSAC. TOTAL', width:100},
     { field:'numero', headerName:'NUMERO', width:110},
     { field:'comisiontotal', headerName:'COMISION TOTAL', width:150},
-    { field:'gerente', headerName:'GERENTE', width:200},
-    { field:'codigoope', headerName:'OPE', width:4},
     { field:'servicio', headerName:'SERVICIO', width:100},
-    { field:'transtotal', headerName:'TRANSAC. TOTAL', width:100},
-    { field:'saldo', headerName:'SALDO', width:150},
+    { field:'gerente', headerName:'GERENTE', width:200},
     { field:'estado',
       headerName:'ESTADO',
       description:'Aqui muestra el estado de la caja',
@@ -107,7 +109,7 @@ const columnsTrans: GridColDef[] = [
 
 ];
 
-const NuevaAgenciaPage = () => {
+const NuevoCajeroPage = () => {
     {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
 const { toggleNuevaCajaDialog} = useContext(UIContext);
 
@@ -333,7 +335,7 @@ const { toggleNuevaCajaDialog} = useContext(UIContext);
             {/* TABLA DE REGISTROS CAJAS  */}
             <DataGrid
                     rows={[]}
-                    columns={columnsCajas}
+                    columns={columnsCajeros}
                     pageSize={10}
                     rowsPerPageOptions={[10,50,100]}
                     components={{ Toolbar: GridToolbar }}
@@ -497,4 +499,4 @@ const { toggleNuevaCajaDialog} = useContext(UIContext);
   )
 }
 
-export default NuevaAgenciaPage
+export default NuevoCajeroPage

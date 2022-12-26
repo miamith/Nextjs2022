@@ -1,5 +1,6 @@
-import React, { useContext } from 'react'
-import { AddHomeWorkOutlined, AddOutlined, ArrowCircleDownOutlined, CheckCircleOutlineOutlined, DeleteOutlined, PointOfSaleOutlined } from '@mui/icons-material';
+import React from 'react'
+import { useContext } from 'react';
+import { AddOutlined, DeleteOutlined, SportsScoreOutlined } from '@mui/icons-material';
 import { Grid, Box, Chip, Link, Button } from '@mui/material';
 import { AdminLayout } from '../../../components/layouts';
 import { DataGrid, GridColDef, GridRenderCellParams, GridToolbar } from '@mui/x-data-grid';
@@ -11,21 +12,17 @@ import { UIContext } from '../../../context';
  {/* TABLA COLUMNAS*/}
  const columns: GridColDef[] = [
     { field:'id', headerName:'ID', width:4},
-    { field:'numero', headerName:'NUMERO', width:110},
-    { field:'cajade', headerName:'CAJA DE', width:180},
-    { field:'saldode', headerName:'SALDO DE', width:110},
-    { field:'comision', headerName:'COMISION', width:150},
-    { field:'saldototalcaja', headerName:'SALDO TOTAL CAJA', width:100},
-    { field:'totalUV', headerName:'TOTAL UV', width:100},
-    { field:'sentido', headerName:'SENTIDO', width:70},
-    { field:'codigoope', headerName:'OPE', width:4},
-    { field:'adminagencia', headerName:'ADMIN AGENCIA', width:150},
-    { field:'nombre', headerName:'NOMBRE', width:180},
-    { field:'gerente', headerName:'GERENTE', width:150},
+    { field:'nombre', headerName:'NOMBRE', width:100},
+    { field:'codificacion', headerName:'CODIFICACION', width:100},
+    { field:'simbolo', headerName:'SIMBOLO', width:100},
+    { field:'idioma', headerName:'IDIOMA', width:100},
+    { field:'limitenvio', headerName:'LIMITE ENVIO', width:100},
+    { field:'limitrecep', headerName:'LIMITE RECEPCION', width:100},
+    { field:'partnerapi', headerName:'PARTNERS API', width:100},
 
     { field:'estado',
       headerName:'ESTADO',
-      description:'Aqui muestra el estado de la agencia',
+      description:'Aqui muestra el estado de moneda',
       width:120,
       renderCell:(params: GridRenderCellParams)=>{
           return (
@@ -36,6 +33,32 @@ import { UIContext } from '../../../context';
                     
         } 
     },
+    { field:'desactivado',
+    headerName:'DESACTIVADO',
+    description:'Aqui muestra el estado de moneda',
+    width:120,
+    renderCell:(params: GridRenderCellParams)=>{
+        return (
+            params.row.estado
+                  ? <Chip color="success" label="Activo" variant='outlined'/>
+                  :<Chip color="error" label="Inactivo" variant='outlined'/>
+              )
+                  
+      } 
+  },
+  { field:'desactiavdosms',
+  headerName:'DESACTIVADO',
+  description:'Aqui muestra el estado de moneda',
+  width:120,
+  renderCell:(params: GridRenderCellParams)=>{
+      return (
+          params.row.estado
+                ? <Chip color="success" label="Activo" variant='outlined'/>
+                :<Chip color="error" label="Inactivo" variant='outlined'/>
+            )
+                
+    } 
+},
 
     { field:'creador', headerName:'CREADOR', width:150},
     { field:'fecha', headerName:'FECHA', width:100},
@@ -61,19 +84,18 @@ const rows=[null
 ]
 
 
-const AgenciasPage = () => {
+const PaisesPage = () => {
 
-        {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
-const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
-
+      {/* NAVEGACION DEL DIALOG: tomando nuestro UIContext */}
+const { toggleNuevoPaisDialog} = useContext(UIContext);
 
 
   return (
   
     <AdminLayout 
-        titulo={' Agencias'} 
-        subtitulo={'Lista de todas las agencias'}
-        icon={<AddHomeWorkOutlined/>}
+        titulo={' Paises'} 
+        subtitulo={'Lista de todos los paises'}
+        icon={<SportsScoreOutlined/>}
     >
 
       {/* BOTONES DE ACCION  Y FILTROS*/}
@@ -82,27 +104,9 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
                         sx={{ mr: 1, }}
                         color="secondary"
                         startIcon={ <AddOutlined /> }
-                        href='/admin/agencias/NuevaAgencia'
+                        onClick={ toggleNuevoPaisDialog }
                         >
-                        Nueva
-                    </Button>
-                    <Button 
-                                    
-                        sx={{ mr: 1 }}
-                        color="primary"
-                        startIcon={ <CheckCircleOutlineOutlined /> }
-                        onClick={ toggleNuevaVentaAgenciaUDialog }
-                        >
-                        Vender UV 
-                    </Button>
-                    <Button 
-                        variant="outlined" 
-                        sx={{ mr: 1, }}
-                        color="success"
-                        startIcon={ <ArrowCircleDownOutlined /> }
-                        href='/admin/comercial/NuevoComercial'
-                        >
-                        Convert comision
+                        Nuevo
                     </Button>
                     <Button
                         color="warning"
@@ -117,7 +121,7 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
 
         <Grid item xs={12} sx={{ height:400, width:'100%'}}>
           
-          {/* TABLA DE REGISTROS  CAJAS UV */}
+          {/* TABLA DE REGISTROS  MONEDAS */}
             <DataGrid
                     rows={[]}
                     columns={columns}
@@ -148,4 +152,4 @@ const { toggleNuevaVentaAgenciaUDialog} = useContext(UIContext);
   )
 }
 
-export default AgenciasPage
+export default PaisesPage  
